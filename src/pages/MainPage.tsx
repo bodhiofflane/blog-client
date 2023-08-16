@@ -1,10 +1,10 @@
-import PostList from '../entities/posts/components/PostList';
+import AllPosts from '../entities/posts/components/AllPosts';
 
 const MainPage = () => {
   return (
-    <main className=''>
-      <PostList/>
-    </main>
+    <div className=''>
+      <AllPosts/>
+    </div>
   );
 }
  

@@ -46,7 +46,7 @@ const BurgerMenu = () => {
       </button>
       {isOpenMenu ? (
         <div
-          className="absolute left-0 top-0 h-screen w-4/6 bg-slate-400"
+          className="absolute left-0 top-0 h-screen w-4/6 bg-slate-400 z-50"
           id="modal-menu"
         >
           <nav className="flex flex-col justify-between items-center space-x-3 text-xl order-2">

@@ -1,23 +1,25 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../shared/hooks/appHooks';
 import { getPostsThunk } from '../models/postsThunk';
+import PostCard from '../../../shared/components/PostCard';
 
 const PostList = () => {
   const dispath = useAppDispatch();
   const postList = useAppSelector(state => state.posts.posts);
-  console.log(postList);
 
   useEffect(() => {
     dispath(getPostsThunk());
-  }, []);
+  }, [dispath]);
+
   return (
     <div>
       {
-        postList.map((item, index) => {
+        postList.map((post) => {
           return (
-            <div key={index}>
-              <h2>{item.title}</h2>
-            </div>
+            <PostCard
+              key={post._id}
+              post={post}
+            />
           )
         })
       }

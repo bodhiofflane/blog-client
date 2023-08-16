@@ -3,23 +3,24 @@ import { getPostsThunk } from './postsThunk';
 
 type ItitailStateType = {
   posts: {
-    _id: null | string;
-    title: null | string;
-    postText: null | string;
-    author: null | string;
-    imgURL: null | string;
-    views: null | number;
-    createdAt: null | string;
-    updatedAt: null | string;
+    _id: string;
+    title: string;
+    postText: string;
+    authorId: string;
+    authorName: string;
+    imgURL: string;
+    views: number;
+    createdAt: string;
+    updatedAt: string;
   }[];
   status: 'ok' | 'loading' | 'error';
-  message: null | string;
+  message: string;
 }; 
 
 const initialState: ItitailStateType = {
   posts: [],
   status: 'ok',
-  message: null,
+  message: '',
 }
 
 const postsSlice = createSlice({

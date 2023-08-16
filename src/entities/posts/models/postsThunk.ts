@@ -5,8 +5,9 @@ type ResponseGetPostsType = {
   posts: {
     _id: string;
     title: string;
-    postText: string
-    author: string;
+    postText: string;
+    authorId: string;
+    authorName: string;
     imgURL: string;
     views: number;
     createdAt: string;
