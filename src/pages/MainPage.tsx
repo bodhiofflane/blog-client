@@ -1,7 +1,9 @@
+import PostList from '../entities/posts/components/PostList';
+
 const MainPage = () => {
   return (
     <main className=''>
-      Главная страница
+      <PostList/>
     </main>
   );
 }

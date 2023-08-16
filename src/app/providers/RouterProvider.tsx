@@ -9,6 +9,7 @@ import MainPage from '../../pages/MainPage';
 import RegistrationPage from '../../pages/RegistrationPage';
 import LoginPage from '../../pages/LoginPage';
 import RequireAuth from '../../shared/hocs/RequireAuth';
+import CreatePostPage from '../../pages/CreatePostPage';
 
 const RouterProvider = () => {
   // Перенесни с отдельнйы провайдер
@@ -27,7 +28,7 @@ const RouterProvider = () => {
     <Routes>
       <Route path='/' element={<Layout/>}>
         <Route index element={<MainPage/>}/>
-        <Route path='create-post' element={<RequireAuth><RegistrationPage/></RequireAuth>}/>
+        <Route path='create-post' element={<RequireAuth><CreatePostPage/></RequireAuth>}/>
         <Route path='posts' element={<p>Посты</p>}/>
         <Route path='registration' element={<RegistrationPage/>}/>
         <Route path='login' element={<LoginPage/>}/>

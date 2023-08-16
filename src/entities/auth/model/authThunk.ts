@@ -7,7 +7,7 @@ import myBlogRefreshAuth from '../api/myBlogRefreshAuth';
 // Reg
 type RegistrationResponseType = {
   user: {
-    id: string;
+    _id: string;
     username: string;
     role: string;
     avatarURL: string;
