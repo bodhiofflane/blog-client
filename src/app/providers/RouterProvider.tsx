@@ -10,6 +10,7 @@ import RegistrationPage from '../../pages/RegistrationPage';
 import LoginPage from '../../pages/LoginPage';
 import RequireAuth from '../../shared/hocs/RequireAuth';
 import CreatePostPage from '../../pages/CreatePostPage';
+import PostPage from '../../pages/PostPage';
 
 const RouterProvider = () => {
   // Перенесни с отдельнйы провайдер
@@ -29,7 +30,7 @@ const RouterProvider = () => {
       <Route path='/' element={<Layout/>}>
         <Route index element={<MainPage/>}/>
         <Route path='create-post' element={<RequireAuth><CreatePostPage/></RequireAuth>}/>
-        <Route path='posts' element={<p>Посты</p>}/>
+        <Route path='post/:id' element={<PostPage/>}/>
         <Route path='registration' element={<RegistrationPage/>}/>
         <Route path='login' element={<LoginPage/>}/>
         <Route path='*' element={<p>Page Not Found</p>}/>

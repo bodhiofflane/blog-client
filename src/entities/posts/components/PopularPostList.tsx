@@ -24,6 +24,7 @@ const PopularPostList = () => {
       {popularPosts.map((popularPost) => {
         return (
           <PopularPostCard
+            key={popularPost._id}
             title={popularPost.title}
             _id={popularPost._id}
             views={popularPost.views}

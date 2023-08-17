@@ -1,7 +1,9 @@
+import CreatePostForm from '../features/post/components/createPostForm';
+
 const CreatePostPage = () => {
   return (
     <div>
-      CreatePost
+      <CreatePostForm/>
     </div>
   );
 }

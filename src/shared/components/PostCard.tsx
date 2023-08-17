@@ -26,7 +26,7 @@ const PostCard = ({post}: PostCardProps) => {
       : post.authorName;
 
   return (
-    /* Оберну в линг позже */
+    /* Оберну в линк позже */
     <article className="flex flex-col p-3 mb-2 w-full rounded-md bg-teal-100">
       <div className="flex justify-between items-center mb-3">
         <div className="flex items-center gap-1 cursor-pointer">
@@ -38,9 +38,9 @@ const PostCard = ({post}: PostCardProps) => {
         <p className="text-gray-500">{transformDate(post.createdAt)}</p>
       </div>
 
-      <div className="relative rounded-xl whitespace-nowrap overflow-hidden">
-        <h3 className="absolute -z-10 top-0 left-0 w-full py-3 text-center text-lg text-gray-700 font-bold bg-gray-50 bg-opacity-50">
-          {post.title.substring(0, 13)}
+      <div className="relative rounded-xl overflow-hidden">
+        <h3 className="absolute top-0 left-0 w-full py-3 text-center text-lg text-gray-700 font-bold bg-gray-50 bg-opacity-50 break-words">
+          {post.title}
         </h3>
         <img
           className="block w-full h-96 md:h-[800px] object-cover object-center"

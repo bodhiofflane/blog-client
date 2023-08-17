@@ -8,11 +8,11 @@ import {
 
 type FileInputPorps = {
   children: ReactNode;
-  riseAvatar: (file: File) => void;
+  riseImg: (file: File) => void;
 } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
-const ImgInput = ({children, riseAvatar}: FileInputPorps) => {
-  const [avatarURL, setAvatarURL] = useState('');
+const ImgInput = ({children, riseImg}: FileInputPorps) => {
+  const [imgURL, setimgURL] = useState('');
   const [errorMessage, setErrorMessage] = useState<null | string>(null);
 
   const maxAvatarSize = 5000000;
@@ -29,8 +29,8 @@ const ImgInput = ({children, riseAvatar}: FileInputPorps) => {
       if (file.size > maxAvatarSize) {
         return setErrorMessage('Слишком большое изображение');
       }
-      riseAvatar(file);
-      setAvatarURL(URL.createObjectURL(file));
+      riseImg(file);
+      setimgURL(URL.createObjectURL(file));
       setErrorMessage('');
     }
   };
@@ -49,10 +49,10 @@ const ImgInput = ({children, riseAvatar}: FileInputPorps) => {
           onChange={fileChangeHandle}
         />
       </label>
-      {avatarURL ? (
+      {imgURL ? (
         <img
           className="block"
-          src={avatarURL}
+          src={imgURL}
           alt="avatar"
         />
       ) : null}

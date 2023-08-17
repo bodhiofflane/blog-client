@@ -40,7 +40,7 @@ const RegistrationForm = () => {
     dispatch(registrationThunk(multipartFormData));
   };
 
-  const riseAvatar = (file: File) => {
+  const riseImg = (file: File) => {
     setAvatar(file);
   };
 
@@ -92,7 +92,7 @@ const RegistrationForm = () => {
         />
 
         {/* Кстомный интуп который может получать файлы */}
-        <ImgInput riseAvatar={riseAvatar}>Загрузить изображение</ImgInput>
+        <ImgInput riseImg={riseImg}>Загрузить изображение</ImgInput>
 
         <div className="flex justify-around py-2">
           <Button type="submit">Регистрация</Button>
