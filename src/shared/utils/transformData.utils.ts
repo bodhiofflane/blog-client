@@ -2,7 +2,6 @@ const transformDate = (date: string): string => {
   const dateInsnatce = new Date(date);
   const presentDate = new Date();
 
-  //
   const presentDay = presentDate.getDate();
   const presentMount = presentDate.getMonth();
   const presentYear = presentDate.getFullYear();

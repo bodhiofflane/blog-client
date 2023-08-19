@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../shared/hooks/appHooks';
 import { getPostsThunk } from '../models/postsThunk';
-import PostCard from '../../../shared/components/PostCard';
+import PostCardFromList from '../../../shared/components/PostCardFromList';
 
 const PostList = () => {
   const dispath = useAppDispatch();
@@ -16,11 +16,11 @@ const PostList = () => {
       {
         postList.map((post) => {
           return (
-            <PostCard
+            <PostCardFromList
               key={post._id}
               post={post}
             />
-          )
+          );
         })
       }
     </div>

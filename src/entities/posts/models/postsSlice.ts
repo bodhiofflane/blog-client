@@ -26,7 +26,11 @@ const initialState: ItitailStateType = {
 const postsSlice = createSlice({
   name: 'posts',
   initialState,
-  reducers: {},
+  reducers: {
+    deletePostFromArrayPosts: (state, action) => {
+      state.posts = state.posts.filter((post) => post._id !== action.payload);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getPostsThunk.pending, (state) => {
@@ -44,5 +48,7 @@ const postsSlice = createSlice({
       })
   }
 })
+
+export const {deletePostFromArrayPosts} = postsSlice.actions;
 
 export default postsSlice.reducer;
