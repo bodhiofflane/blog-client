@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 
 import {BsEye} from 'react-icons/bs';
 import {LiaUserSolid} from 'react-icons/lia';
@@ -14,15 +14,18 @@ import Button from '../../../shared/ui/Button';
 import { deletePostByIdThunk } from '../../../features/post/model/postThunk';
 import { useNavigate } from 'react-router-dom';
 
-type PostCard = {
+type PostCardProps = {
   postId: string;
 };
 
-const PostCard = ({postId}: PostCard) => {
+const PostCard = ({postId}: PostCardProps) => {
   const dispath = useAppDispatch();
   const authUserId = useAppSelector((state) => state.auth.id);
   const post = useAppSelector((state) => state.post.post);
   const status = useAppSelector((state) => state.post.status);
+
+  // Разобраться с именем
+  const [visitCount, setVisitCount] = useState(0);
 
   const navigate = useNavigate();
 
@@ -35,26 +38,26 @@ const PostCard = ({postId}: PostCard) => {
   // Доделать
   useEffect(() => {
     dispath(getPostByIdThunk(postId));
-  }, [dispath, postId])
+  }, [dispath, postId]);
 
   useEffect(() => {
-    if (status === 'deleted') {
+    if (visitCount > 0 && status === 'deleted') {
       navigate('/');
     }
-  }, [status, navigate]);
+  }, [status, navigate, visitCount]);
 
+  // Handlers
   const deleteThisPost = (id: string) => {
     dispath(deletePostByIdThunk(id));
-  }
+    setVisitCount(1);
+  };
 
   if (status !== 'success') {
     return <span>Oh...</span>;
   }
 
-  console.log(status);
-
   return (
-    <article className="flex flex-col p-3 mb-2 w-full rounded-md bg-teal-100">
+    <article className="flex flex-col p-3 w-full rounded-md bg-teal-100">
       <div className="flex justify-between items-center mb-3">
         <div className="flex items-center gap-1 cursor-pointer">
           <span className="flex text-gray-500 text-2xl">
@@ -89,7 +92,10 @@ const PostCard = ({postId}: PostCard) => {
               <span>
                 <AiOutlineEdit />
               </span>
-              <Button style='red' onClick={() => deleteThisPost(postId)}>
+              <Button
+                style="red"
+                onClick={() => deleteThisPost(postId)}
+              >
                 <AiOutlineDelete />
               </Button>
             </>

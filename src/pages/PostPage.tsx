@@ -1,12 +1,10 @@
-
-import { useParams } from 'react-router-dom';
-import PostCard from '../entities/post/components/PostCard';
+import PostWidget from '../widgets/components/PostWidget';
 
 const PostPage = () => {
-  const {id} = useParams();
+
 
   return (
-    <PostCard postId={id as string}/>
+    <PostWidget/>
   );
 }
  

@@ -11,7 +11,7 @@ type TextareaProps = {
 const Textarea = ({title, id, error, ...props}: TextareaProps) => {
   return (
     <label
-      className="relative flex flex-col justify-center mb-6"
+      className="relative flex flex-col justify-center mb-6 w-full"
       htmlFor={id}
     >
       <h3 className="text-gray-600 mb-1">{title}</h3>
