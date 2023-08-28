@@ -28,7 +28,7 @@ const LoginForm = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      // Эмитация x-www-form-urlencoded. Но можно сделать экземпляром FormData.
+      // Эмитация x-www-form-urlencoded.
       const userData = new URLSearchParams({
         username: values.username,
         password: values.password,

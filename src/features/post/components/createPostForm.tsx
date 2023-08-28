@@ -1,21 +1,21 @@
-import {useState} from 'react';
-import {useFormik} from 'formik';
-import * as Yup from 'yup';
-import Button from '../../../shared/ui/Button';
-import Input from '../../../shared/ui/Input';
-import Textarea from '../../../shared/ui/Textarea';
-import ImgInput from '../../../shared/ui/ImgInput';
-import { useAppDispatch } from '../../../shared/hooks/appHooks';
-import { createPostThunk } from '../model/postThunk';
+import { useState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import Button from "../../../shared/ui/Button";
+import Input from "../../../shared/ui/Input";
+import Textarea from "../../../shared/ui/Textarea";
+import ImgInput from "../../../shared/ui/ImgInput";
+import { useAppDispatch } from "../../../shared/hooks/appHooks";
+import { createPostThunk } from "../model/postThunk";
 
 const validationSchema = Yup.object({
   title: Yup.string()
-    .min(2, 'Не короче 2 символов')
-    .max(50, 'Не длинее 50')
-    .required('Обязательное поле'),
+    .min(2, "Не короче 2 символов")
+    .max(50, "Не длинее 50")
+    .required("Обязательное поле"),
   postText: Yup.string()
-    .min(5, 'Не короче 5 символов')
-    .required('Обязательное поле')
+    .min(5, "Не короче 5 символов")
+    .required("Обязательное поле"),
 });
 
 const CreatePostForm = () => {
@@ -25,16 +25,16 @@ const CreatePostForm = () => {
 
   const createPostForm = useFormik({
     initialValues: {
-      title: '',
-      postText: '',
+      title: "",
+      postText: "",
     },
     validationSchema,
     onSubmit: (values) => {
       const multipartFormData = new FormData();
-      multipartFormData.append('title', values.title);
-      multipartFormData.append('postText', values.postText);
+      multipartFormData.append("title", values.title);
+      multipartFormData.append("postText", values.postText);
       if (postImg) {
-        multipartFormData.append('postImg', postImg);
+        multipartFormData.append("postImg", postImg);
       }
       dispath(createPostThunk(multipartFormData));
     },
@@ -42,7 +42,7 @@ const CreatePostForm = () => {
 
   const riseImg = (postImg: File) => {
     setPostImg(postImg);
-  }
+  };
 
   return (
     <div className="flex flex-col items-center">
@@ -55,7 +55,7 @@ const CreatePostForm = () => {
           id="title"
           type="text"
           placeholder="Название"
-          {...createPostForm.getFieldProps('title')}
+          {...createPostForm.getFieldProps("title")}
           error={
             createPostForm.errors.title && createPostForm.touched.title
               ? createPostForm.errors.title
@@ -69,7 +69,7 @@ const CreatePostForm = () => {
           title="Текст поста"
           id="postText"
           placeholder="Текст вашего поста"
-          {...createPostForm.getFieldProps('postText')}
+          {...createPostForm.getFieldProps("postText")}
           error={
             createPostForm.errors.postText && createPostForm.touched.postText
               ? createPostForm.errors.postText
