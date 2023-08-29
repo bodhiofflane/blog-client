@@ -6,7 +6,6 @@ import {MdAppRegistration} from 'react-icons/md';
 import * as Yup from 'yup';
 import { useAppDispatch, useAppSelector } from '../../../shared/hooks/appHooks';
 import { loginThunk } from '../model/authThunk';
-import NavigateButton from '../../../shared/ui/NavigateButton';
 
 const validationSchema = Yup.object({
   username: Yup.string()
@@ -39,8 +38,6 @@ const LoginForm = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <NavigateButton direction="back">Назад</NavigateButton>
-      <NavigateButton direction="forward">Вперед</NavigateButton>
       {message ? <p className="text-red-400">{message}</p> : null}
       <h1 className="text-xl font-bold text-gray-500 mb-5">Вход</h1>
       <form

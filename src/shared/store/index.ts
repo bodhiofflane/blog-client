@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
-import authSlice from '../../entities/auth/model/authSlice';
+import authSlice from '../../features/auth/model/authSlice';
 import postSlice from '../../entities/post/model/postSlice';
 import postsSlice from '../../entities/posts/models/postsSlice';
 import popularPostsSlice from '../../entities/popularPosts/models/popularPostsSlice';

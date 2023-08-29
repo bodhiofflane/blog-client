@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../shared/hooks/appHooks';
-import { refreshAuthThunk } from '../../entities/auth/model/authThunk';
+import { refreshAuthThunk } from '../../features/auth/model/authThunk';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from '../components/layout/Layout';

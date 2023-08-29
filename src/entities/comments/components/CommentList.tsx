@@ -13,7 +13,7 @@ const CommentList = ({ postId }: CommentListProps) => {
   const status = useAppSelector((state) => state.comments.status);
 
   // Test. По совпадению можно будет удалить комментарий
-  //const authorizedUserId = useAppSelector((state) => state.auth.id);
+  const authorizedUserId = useAppSelector((state) => state.auth.id);
 
   const dispath = useAppDispatch();
 
@@ -30,7 +30,11 @@ const CommentList = ({ postId }: CommentListProps) => {
       }
     }, 300);
     // Если длинна массива комментарием изменится, то скрол опустится самый низ
-  }, [comments.length])
+  }, [comments.length]);
+
+  const isMyComment = (commentAuthorId: string) => {
+    return commentAuthorId === authorizedUserId ? true : false;
+  }
 
   if (status !== "success") {
     return <p>Ops...</p>;
@@ -40,10 +44,12 @@ const CommentList = ({ postId }: CommentListProps) => {
     <ul ref={commentsBlock} className="min-h-fit max-h-72 overflow-y-auto">
       {comments.length ? (
         comments.map(
-          ({ _id, authorId, authorName, commentText, createdAt }) => {
+          ({ _id, authorId, authorName, commentText, createdAt,  }) => {
             return (
               <Comment
                 key={_id}
+                id={_id}
+                isMyComment={isMyComment(authorId)}
                 authorId={authorId}
                 authorName={authorName}
                 commentText={commentText}

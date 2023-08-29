@@ -40,7 +40,8 @@ const postSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      // Create post. Тут у я просто должен запушить пост в массив постов
+      // Эм... мне нужно взять полученный пост с бека и запушить его в массив постов в postsSlice
+      // Вообщем этот thunk нужно обрабатывать в postsSlice, как и удаление поста(((
       .addCase(createPostThunk.pending, () => {})
       .addCase(createPostThunk.fulfilled, () => {})
       .addCase(createPostThunk.rejected, () => {})

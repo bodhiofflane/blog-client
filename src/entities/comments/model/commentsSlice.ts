@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import { getCommentListByParentPostIdThunk } from './commentsThunks';
 import { createCommentThunk } from '../../../features/comments/model/createCommentThunk';
+import deleteCommentThunk from '../../../features/comments/model/deleteCommentThunk';
 
 type InitialStateType = {
   comments: {
@@ -48,6 +49,15 @@ const commentsSlice = createSlice({
       .addCase(getCommentListByParentPostIdThunk.rejected, (state, action) => {
         state.message = action.error.message as string;
         state.status = 'error';
+      })
+      // Delete comment
+      .addCase(deleteCommentThunk.fulfilled, (state, action) => {
+        state.comments = state.comments.filter((comment) => {
+          return comment._id !== action.payload.deletedComment._id;
+        });
+
+
+        state.message = action.payload.message;
       })
   },
 });

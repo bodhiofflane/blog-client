@@ -1,7 +1,7 @@
 
 import Navigation from '../../../shared/components/Navigation';
 import AppLogo from '../../../shared/ui/AppLogo';
-import UserControl from '../../../entities/auth/components/UserControl';
+import UserControl from '../../../features/auth/components/UserControl';
 import BurgerMenu from '../../../shared/components/BurgerMenu';
 
 const Header = () => {

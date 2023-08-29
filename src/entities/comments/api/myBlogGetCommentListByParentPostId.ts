@@ -10,7 +10,6 @@ const myBlogGetCommentListByParentPostId = async (parentPostId: string) => {
         {Accept: 'application/json'},
       }
     );
-    console.log(data);
     return data;
   } catch (error) {
     if (isAxiosError(error)) {
