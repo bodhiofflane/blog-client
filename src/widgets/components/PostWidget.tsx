@@ -1,16 +1,19 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import PostCard from "../../entities/post/components/PostCard";
 
 import { useEffect, useRef } from "react";
 
 import CommentList from "../../entities/comments/components/CommentList";
-import SendCommentForm from '../../features/comments/components/SendCommentForm';
-//import { useAppSelector } from '../../shared/hooks/appHooks';
+import SendCommentForm from "../../features/comments/components/SendCommentForm";
+import { useAppSelector } from "../../shared/hooks/appHooks";
+import CustomLink from "../../shared/ui/CustomLink";
 
 const PostWidget = () => {
   const { id } = useParams();
 
-  //const isAuth = useAppSelector((state) => state.auth.auth);
+  const auth = useAppSelector((state) => state.auth.auth);
+
+  const location = useLocation();
 
   const commentsBlock = useRef<HTMLUListElement>(null);
 
@@ -29,10 +32,14 @@ const PostWidget = () => {
 
       <article className="p-3 bg-teal-100 rounded-md">
         <CommentList postId={id as string} />
-        
-        {/* Нужно сделать отображение по условию. Здесь или внутри компонента? */}
-        <SendCommentForm postId={id as string}/>
 
+        {auth ? (
+          <SendCommentForm postId={id as string} />
+        ) : (
+          <CustomLink to="/login" state={{from: location.pathname}}>
+            Авторизуйтесь что бы оставить комментарий
+          </CustomLink>
+        )}
       </article>
     </article>
   );

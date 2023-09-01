@@ -1,4 +1,4 @@
-import PopularPostList from './PopularPostList';
+import PopularPostList from '../../popularPosts/components/PopularPostList';
 import PostList from './PostList';
 
 const AllPosts = () => {

@@ -8,7 +8,6 @@ const getPopularPosts = async () => {
         Accept: 'application/json'
       }
     });
-    console.log(data);
     return data;
   } catch (error) {
     if (isAxiosError(error)) {

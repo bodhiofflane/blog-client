@@ -1,15 +1,13 @@
 import {useEffect} from 'react';
 import PopularPostCard from '../../../shared/components/PopularPostCard';
 import {useAppDispatch, useAppSelector} from '../../../shared/hooks/appHooks';
-import {getPopularPostsThunk} from '../../popularPosts/models/getPopularPostThunk';
+import {getPopularPostsThunk} from '../models/getPopularPostThunk';
 
 const PopularPostList = () => {
   const dispathc = useAppDispatch();
   const {popularPosts, status} = useAppSelector(
     (state) => state.popularPosts
   );
-
-  console.log(popularPosts);
 
   useEffect(() => {
     dispathc(getPopularPostsThunk());

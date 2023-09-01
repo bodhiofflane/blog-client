@@ -5,7 +5,6 @@ import { getCommentListByParentPostIdThunk } from "../model/commentsThunks";
 
 type CommentListProps = {
   postId: string;
-  //children?: ReactNode;
 };
 
 const CommentList = ({ postId }: CommentListProps) => {

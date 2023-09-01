@@ -17,8 +17,8 @@ const initialState: InitialStateType = {
   id: null,
   role: null,
   avatarURL: null,
-  status: 'waiting',
   message: null,
+  status: 'waiting',
 };
 
 const authSlice = createSlice({
@@ -34,6 +34,10 @@ const authSlice = createSlice({
       state.role = null;
       state.avatarURL = null;
       state.message = null;
+      state.status = 'waiting';
+    },
+    clearStatus: (state) => {
+      state.status = 'waiting';
     }
   },
   extraReducers(builder) {
@@ -95,6 +99,6 @@ const authSlice = createSlice({
   },
 });
 
-export const {logout} = authSlice.actions;
+export const {logout, clearStatus} = authSlice.actions;
 
 export default authSlice.reducer;

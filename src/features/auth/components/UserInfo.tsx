@@ -4,6 +4,7 @@ import { MY_BLOG } from "../../../shared/constants/myBlog";
 import { BiLogOut } from "react-icons/bi";
 import { useAppDispatch } from "../../../shared/hooks/appHooks";
 import { logout } from '../model/authSlice';
+import { toast } from 'react-toastify';
 
 type UserInfoProps = {
   username: string;
@@ -16,6 +17,11 @@ const UserInfo = ({ username, avatar }: UserInfoProps) => {
   const dispatch = useAppDispatch();
 
   const avatarFullURL = MY_BLOG + avatar;
+
+  const logoutHandler = () => {
+    toast('Вы вышли из аккаунта');
+    dispatch(logout());
+  }
 
   return (
     <div className="relative flex items-center space-x-3">
@@ -32,7 +38,7 @@ const UserInfo = ({ username, avatar }: UserInfoProps) => {
         <div className="absolute top-[50px] right-5">
           <ul className="bg-teal-100 p-2 rounded-md">
             <li>Сменить тему</li>
-            <button onClick={() => dispatch(logout())} className="flex items-center gap-1">
+            <button onClick={logoutHandler} className="flex items-center gap-1">
               Выйти
               <BiLogOut />
             </button>

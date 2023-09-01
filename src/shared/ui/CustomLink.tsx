@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, LinkProps} from 'react-router-dom';
 import cn from 'classnames';
 
 
@@ -7,18 +7,17 @@ import {ReactNode} from 'react';
 
 type CustomLinkProps = {
   style?: 'prim' | 'second';
-  to: string;
   children: ReactNode;
-}
+} & LinkProps;
 
-const CustomLink = ({style = 'prim', to, children}: CustomLinkProps) => {
+const CustomLink = ({style = 'prim', children, ...props}: CustomLinkProps) => {
   return (
     <Link
       className={cn('inline-flex', {
         'text-gray-500': style === 'prim',
         'text-gray-100': style === 'second',
       })}
-      to={to}
+      {...props}
     >
       {children}
     </Link>
