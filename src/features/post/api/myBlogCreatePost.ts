@@ -3,7 +3,7 @@ import myBlogAxios from '../../../shared/api/instances/myBlogAxios';
 
 const myBlogCreatePost = async (multipartFormData: FormData) => {
   try {
-    const {data} = await myBlogAxios.post('/post', multipartFormData, {
+    const {data} = await myBlogAxios.post('/posts', multipartFormData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

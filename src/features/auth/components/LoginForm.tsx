@@ -9,7 +9,7 @@ import { loginThunk } from "../model/authThunk";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
-import { clearStatus } from "../model/authSlice";
+import { clearAuthStatusAndMessage } from "../model/authSlice";
 import Loading from "../../../shared/ui/Loading";
 
 const validationSchema = Yup.object({
@@ -70,7 +70,7 @@ const LoginForm = () => {
       toast.error(message);
     }
     return () => {
-      dispatch(clearStatus());
+      dispatch(clearAuthStatusAndMessage());
     };
   }, [status, message, navigate, dispatch, redirecPathAfterAuth]);
 

@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 
 import {BsEye} from 'react-icons/bs';
 import {LiaUserSolid} from 'react-icons/lia';
@@ -13,6 +13,9 @@ import {getPostByIdThunk} from '../model/postThunks';
 import Button from '../../../shared/ui/Button';
 import { deletePostByIdThunk } from '../../../features/post/model/postThunk';
 import { useNavigate } from 'react-router-dom';
+import { clearPostStatusAndMessage } from '../model/postSlice';
+import { toast } from 'react-toastify';
+import Loading from '../../../shared/ui/Loading';
 
 type PostCardProps = {
   postId: string;
@@ -20,12 +23,10 @@ type PostCardProps = {
 
 const PostCard = ({postId}: PostCardProps) => {
   const dispath = useAppDispatch();
-  const authUserId = useAppSelector((state) => state.auth.id);
+  const authUserId = useAppSelector((state) => state.auth._id);
   const post = useAppSelector((state) => state.post.post);
   const status = useAppSelector((state) => state.post.status);
-
-  // Разобраться с именем
-  const [visitCount, setVisitCount] = useState(0);
+  const message = useAppSelector((state) => state.post.message);
 
   const navigate = useNavigate();
 
@@ -41,19 +42,22 @@ const PostCard = ({postId}: PostCardProps) => {
   }, [dispath, postId]);
 
   useEffect(() => {
-    if (visitCount > 0 && status === 'deleted') {
-      navigate('/');
+    if (status === 'deleted') {
+      toast(message);
+      navigate(-1);
     }
-  }, [status, navigate, visitCount]);
+    return () => {
+      dispath(clearPostStatusAndMessage());
+    }
+  }, [status, navigate, message, dispath]);
 
   // Handlers
   const deleteThisPost = (id: string) => {
     dispath(deletePostByIdThunk(id));
-    setVisitCount(1);
   };
 
-  if (status !== 'success') {
-    return <span>Oh...</span>;
+  if (status === 'loading') {
+    return <Loading/>;
   }
 
   return (

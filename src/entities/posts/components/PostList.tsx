@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../shared/hooks/appHooks';
 import { getPostsThunk } from '../models/postsThunk';
-import PostCardFromList from '../../../shared/components/PostCardFromList';
+import PostCardFromList from './PostCardFromList';
 
 const PostList = () => {
   const dispath = useAppDispatch();

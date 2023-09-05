@@ -15,7 +15,7 @@ const ImgInput = ({children, riseImg}: FileInputPorps) => {
   const [imgURL, setimgURL] = useState('');
   const [errorMessage, setErrorMessage] = useState<null | string>(null);
 
-  const maxAvatarSize = 5000000;
+  const maxAvatarSize = 10000000;
 
   const fileChangeHandle = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.item(0);

@@ -3,7 +3,7 @@ import myBlogAxios from '../../../shared/api/instances/myBlogAxios';
 
 const getPopularPosts = async () => {
   try {
-    const {data} = await myBlogAxios.get('/post/popular', {
+    const {data} = await myBlogAxios.get('/posts/popular', {
       headers: {
         Accept: 'application/json'
       }

@@ -3,7 +3,7 @@ import myBlogAxios from '../../../shared/api/instances/myBlogAxios';
 
 const myBlogDeletePostById = async (id: string) => {
   try {
-    const {data} = await myBlogAxios.delete(`/post/${id}`);
+    const {data} = await myBlogAxios.delete(`/posts/${id}`);
     return data;
   } catch (error) {
     if (isAxiosError(error)) {

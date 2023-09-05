@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Button from "../../../shared/ui/Button";
 import Input from "../../../shared/ui/Input";
 import Textarea from "../../../shared/ui/Textarea";
 import ImgInput from "../../../shared/ui/ImgInput";
-import { useAppDispatch } from "../../../shared/hooks/appHooks";
+import { useAppDispatch, useAppSelector } from "../../../shared/hooks/appHooks";
 import { createPostThunk } from "../model/postThunk";
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import Loading from '../../../shared/ui/Loading';
+import { clearPostStatusAndMessage } from '../../../entities/post/model/postSlice';
 
 const validationSchema = Yup.object({
   title: Yup.string()
@@ -19,9 +23,15 @@ const validationSchema = Yup.object({
 });
 
 const CreatePostForm = () => {
+  const status = useAppSelector((state) => state.post.status);
+  const message = useAppSelector((state) => state.post.message);
+  const createdPostId = useAppSelector((state) => state.post.post._id);
+
   const [postImg, setPostImg] = useState<null | File>(null);
 
   const dispath = useAppDispatch();
+
+  const navigate = useNavigate();
 
   const createPostForm = useFormik({
     initialValues: {
@@ -43,6 +53,28 @@ const CreatePostForm = () => {
   const riseImg = (postImg: File) => {
     setPostImg(postImg);
   };
+
+  useEffect(() => {
+    if (status === 'created') {
+      toast.success(message);
+      // Когда создаем пост и добавляем его в список, то нас редиректит на сингл пост и статус мененяется на саксес.
+      // В любом случае верну функцию которая будет отчщать статус и меседж.
+      navigate(`/post/${createdPostId}`, {preventScrollReset: true, replace: true});
+    }
+    return () => {
+      dispath(clearPostStatusAndMessage());
+    }
+  }, [status, message, createdPostId, navigate, dispath]);
+
+  console.log(status);
+
+  if (status === 'loading') {
+    return <Loading/>
+  }
+
+  if (status === 'error') {
+    return <p>Ошибка</p>
+  }
 
   return (
     <div className="flex flex-col items-center">

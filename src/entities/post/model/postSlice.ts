@@ -14,7 +14,7 @@ type InitialStateType = {
     createdAt: string;
     updatedAt: string;
   };
-  status: 'waiting' | 'loading' | 'success' | 'error' | 'deleted';
+  status: 'waiting' | 'loading' | 'success' | 'error' | 'created' | 'deleted';
   message: string;
 };
 
@@ -37,14 +37,49 @@ const initialState: InitialStateType = {
 const postSlice = createSlice({
   name: 'post',
   initialState,
-  reducers: {},
+  reducers: {
+    clearPostStatusAndMessage: (state) => {
+      state.message = '';
+      state.status = 'waiting';
+    }
+  },
   extraReducers(builder) {
     builder
-      // Эм... мне нужно взять полученный пост с бека и запушить его в массив постов в postsSlice
-      // Вообщем этот thunk нужно обрабатывать в postsSlice, как и удаление поста(((
-      .addCase(createPostThunk.pending, () => {})
-      .addCase(createPostThunk.fulfilled, () => {})
-      .addCase(createPostThunk.rejected, () => {})
+
+      // ----------
+      // Create Post
+      .addCase(createPostThunk.pending, (state) => {
+        state.message = '';
+        state.status = 'loading';
+      })
+      .addCase(createPostThunk.fulfilled, (state, action) => {
+        // Устанавливаю полученный пост в этот стейт. А после получаю его id на странице и редиректаю нанего.
+        state.post = action.payload.post;
+
+        state.message = action.payload.message;
+        state.status = 'created';
+      })
+      .addCase(createPostThunk.rejected, (state, action) => {
+        state.message = action.error.message as string;
+        state.status = 'error';
+      })
+
+      // ----------
+      // Delete post. Хм... удалю и з массива постов, если там есть
+      .addCase(deletePostByIdThunk.pending, (state) => {
+        state.message = '';
+        state.status = 'loading';
+      })
+      .addCase(deletePostByIdThunk.fulfilled, (state, action) => {
+        state.message = action.payload.message;
+        state.status = 'deleted';
+      })
+      .addCase(deletePostByIdThunk.rejected, (state, action) => {
+        state.message = action.error.message as string;
+        state.status = 'error';
+      })
+
+      // ----------
       // Get post
       .addCase(getPostByIdThunk.pending, (state) => {
         state.status = 'loading';
@@ -59,16 +94,9 @@ const postSlice = createSlice({
         state.message = action.error.message as string;
         state.status = 'error';
       })
-      // Delete post. Хм... удалю и з массива постов, если там есть
-      .addCase(deletePostByIdThunk.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(deletePostByIdThunk.fulfilled, (state, {payload}) => {
-        state.message = payload.message;
-        state.status = 'deleted';
-      })
-      .addCase(deletePostByIdThunk.rejected, () => {})
   },
 });
+
+export const {clearPostStatusAndMessage} = postSlice.actions;
 
 export default postSlice.reducer;

@@ -1,9 +1,9 @@
 import {BsEye} from 'react-icons/bs';
 import {LiaUserSolid} from 'react-icons/lia';
-import {MY_BLOG} from '../constants/myBlog';
-import transformDate from '../utils/transformData.utils';
+import {MY_BLOG} from '../../../shared/constants/myBlog';
+import transformDate from '../../../shared/utils/transformData.utils';
 import { Link } from 'react-router-dom';
-import CustomLinkButton from '../ui/CustomLinkButton';
+import CustomLinkButton from '../../../shared/ui/CustomLinkButton';
 
 type PostCardFromListProps = {
   post: {

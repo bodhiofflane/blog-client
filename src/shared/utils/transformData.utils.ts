@@ -1,4 +1,6 @@
 const transformDate = (date: string): string => {
+  if (!date) return '0.0.0';
+
   const dateInsnatce = new Date(date);
   const presentDate = new Date();
 

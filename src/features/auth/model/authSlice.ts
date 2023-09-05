@@ -4,7 +4,7 @@ import {loginThunk, refreshAuthThunk, registrationThunk} from './authThunk';
 type InitialStateType = {
   auth: boolean;
   username: null | string;
-  id: null | string;
+  _id: null | string;
   role: null | string;
   avatarURL: null | string;
   status: 'waiting' | 'loading' | 'success' | 'error';
@@ -14,7 +14,7 @@ type InitialStateType = {
 const initialState: InitialStateType = {
   auth: false,
   username: null,
-  id: null,
+  _id: null,
   role: null,
   avatarURL: null,
   message: null,
@@ -30,13 +30,13 @@ const authSlice = createSlice({
       localStorage.removeItem('token');
       state.auth = false;
       state.username = null;
-      state.id = null;
+      state._id = null;
       state.role = null;
       state.avatarURL = null;
       state.message = null;
       state.status = 'waiting';
     },
-    clearStatus: (state) => {
+    clearAuthStatusAndMessage: (state) => {
       state.status = 'waiting';
     }
   },
@@ -49,7 +49,7 @@ const authSlice = createSlice({
       })
       .addCase(registrationThunk.fulfilled, (state, action) => {
         state.username = action.payload.user.username;
-        state.id = action.payload.user._id;
+        state._id = action.payload.user._id;
         state.role = action.payload.user.role;
         state.avatarURL = action.payload.user.avatarURL;
         state.auth = true;
@@ -67,7 +67,7 @@ const authSlice = createSlice({
       })
       .addCase(loginThunk.fulfilled, (state, action) => {
         state.username = action.payload.user.username;
-        state.id = action.payload.user._id;
+        state._id = action.payload.user._id;
         state.role = action.payload.user.role;
         state.avatarURL = action.payload.user.avatarURL;
         state.auth = true;
@@ -85,7 +85,7 @@ const authSlice = createSlice({
       })
       .addCase(refreshAuthThunk.fulfilled, (state, action) => {
         state.username = action.payload.user.username;
-        state.id = action.payload.user._id;
+        state._id = action.payload.user._id;
         state.role = action.payload.user.role;
         state.avatarURL = action.payload.user.avatarURL;
         state.auth = true;
@@ -99,6 +99,6 @@ const authSlice = createSlice({
   },
 });
 
-export const {logout, clearStatus} = authSlice.actions;
+export const {logout, clearAuthStatusAndMessage} = authSlice.actions;
 
 export default authSlice.reducer;

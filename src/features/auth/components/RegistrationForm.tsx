@@ -13,7 +13,7 @@ import Button from "../../../shared/ui/Button";
 import CustomLink from "../../../shared/ui/CustomLink";
 import ImgInput from "../../../shared/ui/ImgInput";
 import { useLocation, useNavigate } from "react-router-dom";
-import { clearStatus } from "../model/authSlice";
+import { clearAuthStatusAndMessage } from "../model/authSlice";
 
 const validationSchema = Yup.object({
   username: Yup.string()
@@ -80,7 +80,7 @@ const RegistrationForm = () => {
       toast.error(message);
     }
     return () => {
-      dispatch(clearStatus());
+      dispatch(clearAuthStatusAndMessage());
     };
   }, [message, status, navigate, dispatch, redirecPathAfterAuth]);
 

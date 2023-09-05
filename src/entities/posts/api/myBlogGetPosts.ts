@@ -3,7 +3,7 @@ import myBlogAxios from '../../../shared/api/instances/myBlogAxios';
 
 const myBlogGetPost = async() => {
   try {
-    const {data} = await myBlogAxios.get(`/post`, {
+    const {data} = await myBlogAxios.get(`/posts`, {
       params: {
         
       }

@@ -1,16 +1,17 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import myBlogCreatePost from '../api/myBlogCreatePost';
 import myBlogDeletePostById from '../api/myBlogDeletePostById';
-import { deletePostFromArrayPosts } from '../../../entities/posts/models/postsSlice';
+import { addNewPostToPostArray, deletePostFromArrayPosts} from '../../../entities/posts/models/postsSlice';
 
 type CreatePostResponeType = {
   post: {
+    _id: string,
     title: string,
     postText: string;
-    author: string,
+    authorId: string,
+    authorName: string;
     imgURL: string,
     views: number,
-    _id: string,
     createdAt: string,
     updatedAt: string,
   },
@@ -19,8 +20,11 @@ type CreatePostResponeType = {
 
 export const createPostThunk = createAsyncThunk<CreatePostResponeType, FormData>(
   'post/create',
-  async (multipartFormData) => {
-    const {data} = await myBlogCreatePost(multipartFormData);
+  async (multipartFormData, {dispatch}) => {
+    const data = await myBlogCreatePost(multipartFormData);
+
+    // Когда получаем ответ от сервера с новыйм постом, то пушим его в другой слайс. Также будет и с удалением.
+    dispatch(addNewPostToPostArray(data.post));
     return data;
   }
 );
@@ -31,7 +35,8 @@ type DeletePostResponseType = CreatePostResponeType;
 export const deletePostByIdThunk = createAsyncThunk<DeletePostResponseType, string>(
   'post/delete',
   async (id, {dispatch}) => {
-    dispatch(deletePostFromArrayPosts(id));
-    return myBlogDeletePostById(id);
+    const data = await myBlogDeletePostById(id);
+    dispatch(deletePostFromArrayPosts(data.post));
+    return data;
   }
 );
