@@ -7,7 +7,7 @@ import deleteCommentThunk from '../../../features/comments/model/deleteCommentTh
 
 type CommentProps = {
   id: string;
-  isMyComment: boolean;
+  isCommentOwnedUser: boolean;
   authorName: string;
   authorId: string;
   createdAt: string;
@@ -16,7 +16,7 @@ type CommentProps = {
 
 const Comment = ({
   id,
-  isMyComment,
+  isCommentOwnedUser,
   authorName,
   authorId,
   commentText,
@@ -38,7 +38,7 @@ const Comment = ({
         <span>{transformDate(createdAt)}</span>
       </div>
       <p>{commentText}</p>
-      {isMyComment ? (
+      {isCommentOwnedUser ? (
         <Button
           onClick={deleteThisComment}
           style='second'

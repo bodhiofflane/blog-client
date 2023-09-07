@@ -3,21 +3,21 @@ import {loginThunk, refreshAuthThunk, registrationThunk} from './authThunk';
 
 type InitialStateType = {
   auth: boolean;
-  username: null | string;
-  _id: null | string;
-  role: null | string;
-  avatarURL: null | string;
+  username: string;
+  _id: string;
+  role: string;
+  avatarURL: string;
   status: 'waiting' | 'loading' | 'success' | 'error';
-  message: null | string;
+  message: string;
 };
 
 const initialState: InitialStateType = {
   auth: false,
-  username: null,
-  _id: null,
-  role: null,
-  avatarURL: null,
-  message: null,
+  username: '',
+  _id: '',
+  role: '',
+  avatarURL: '',
+  message: '',
   status: 'waiting',
 };
 
@@ -29,11 +29,11 @@ const authSlice = createSlice({
     logout: (state) => {
       localStorage.removeItem('token');
       state.auth = false;
-      state.username = null;
-      state._id = null;
-      state.role = null;
-      state.avatarURL = null;
-      state.message = null;
+      state.username = '';
+      state._id = '';
+      state.role = '';
+      state.avatarURL = '';
+      state.message = '';
       state.status = 'waiting';
     },
     clearAuthStatusAndMessage: (state) => {

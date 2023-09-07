@@ -13,7 +13,7 @@ type InitialStateType = {
     createdAt: string;
     updatedAt: string
   }[],
-  status: 'waiting' | 'loading' | 'success' | 'error' | 'deleted';
+  status: 'waiting' | 'loading' | 'success' | 'error' | 'created' | 'deleted';
   message: string;
 }
 
@@ -29,11 +29,20 @@ const commentsSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      // Create Comment. Надо же как то ... эм...
+      // Create Comment.
+      .addCase(createCommentThunk.pending, (state) => {
+        state.message = '';
+        state.status = 'loading'
+      })
       .addCase(createCommentThunk.fulfilled, (state, action) => {
-        state.comments.push(action.payload.comment)
-        // Надо сделать что комментарий добавлен
-        // И так же на случай если не удалось добвить
+        state.comments.push(action.payload.comment);
+
+        state.message = action.payload.message;
+        state.status = 'created';
+      })
+      .addCase(createCommentThunk.rejected, (state, action) => {  
+        state.message = action.error.message as string;
+        state.status = 'error';
       })
       // Get Comment List
       .addCase(getCommentListByParentPostIdThunk.pending, (state) => {
@@ -51,16 +60,21 @@ const commentsSlice = createSlice({
         state.status = 'error';
       })
       // Delete comment
+      .addCase(deleteCommentThunk.pending, (state) => {
+        state.message = '';
+        state.status = 'loading';
+      })
       .addCase(deleteCommentThunk.fulfilled, (state, action) => {
         state.comments = state.comments.filter((comment) => {
           return comment._id !== action.payload.deletedComment._id;
         });
-
-
-        state.message = action.payload.message;
+        state.status = 'success';
+      })
+      .addCase(deleteCommentThunk.rejected, (state, action) => {
+        state.status = 'error';
+        state.message = action.error.message as string;
       })
   },
 });
-
 
 export default commentsSlice.reducer;

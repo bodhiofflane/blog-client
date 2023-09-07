@@ -1,54 +1,74 @@
-import { useEffect, useRef } from "react";
-import { useAppDispatch, useAppSelector } from "../../../shared/hooks/appHooks";
-import Comment from "./Comment";
-import { getCommentListByParentPostIdThunk } from "../model/commentsThunks";
+import { useEffect, useRef } from 'react';
+
+import Comment from './Comment';
+import Loading from '../../../shared/ui/Loading';
+import Error from '../../../shared/ui/Error';
 
 type CommentListProps = {
-  postId: string;
+  commentList: {
+    _id: string;
+    parentPostId: string;
+    authorId: string;
+    authorName: string;
+    commentText: string;
+    createdAt: string;
+    updatedAt: string;
+  }[];
+  commentsStatus:
+    | 'waiting'
+    | 'loading'
+    | 'success'
+    | 'error'
+    | 'created'
+    | 'deleted';
+  authorizedUserId: string;
 };
 
-const CommentList = ({ postId }: CommentListProps) => {
-  const comments = useAppSelector((state) => state.comments.comments);
-  const status = useAppSelector((state) => state.comments.status);
-
-  // Test. По совпадению можно будет удалить комментарий
-  const authorizedUserId = useAppSelector((state) => state.auth.id);
-
-  const dispath = useAppDispatch();
-
-  const commentsBlock = useRef<HTMLUListElement>(null);
-
-  useEffect(() => {
-    dispath(getCommentListByParentPostIdThunk(postId));
-  }, [dispath, postId]);
+const CommentList = ({
+  commentList,
+  commentsStatus,
+  authorizedUserId,
+}: CommentListProps) => {
+  const sectionWithComments = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     setTimeout(() => {
-      if (commentsBlock.current) {
-        commentsBlock.current.scroll({ top: 9999, behavior: "smooth" });
+      if (sectionWithComments.current) {
+        sectionWithComments.current.scroll({ top: 99999, behavior: 'smooth' });
       }
     }, 300);
     // Если длинна массива комментарием изменится, то скрол опустится самый низ
-  }, [comments.length]);
+  }, [commentList.length]);
 
-  const isMyComment = (commentAuthorId: string) => {
+  const isCommentOwnedUser = (commentAuthorId: string) => {
     return commentAuthorId === authorizedUserId ? true : false;
+  };
+
+  // Conditional render
+  // Работает неправильно. Разребусь позже
+
+  if (commentsStatus === 'loading' || commentsStatus === 'waiting') {
+    return <Loading />;
   }
 
-  if (status !== "success") {
-    return <p>Ops...</p>;
+  if (commentsStatus === 'error') {
+    return <Error />;
   }
 
   return (
-    <ul ref={commentsBlock} className="min-h-fit max-h-72 overflow-y-auto">
-      {comments.length ? (
-        comments.map(
-          ({ _id, authorId, authorName, commentText, createdAt,  }) => {
+    <ul
+      ref={sectionWithComments}
+      className="min-h-fit max-h-72 overflow-y-auto"
+    >
+      {commentList.length ? (
+        commentList.map(
+          // Беру id автора здесь
+          ({ _id, authorId, authorName, commentText, createdAt }) => {
             return (
               <Comment
                 key={_id}
                 id={_id}
-                isMyComment={isMyComment(authorId)}
+                isCommentOwnedUser={isCommentOwnedUser(authorId)}
                 authorId={authorId}
                 authorName={authorName}
                 commentText={commentText}
@@ -58,7 +78,7 @@ const CommentList = ({ postId }: CommentListProps) => {
           }
         )
       ) : (
-        <p>Коммиентариев нет</p>
+        <p>Станьте первым кто оставил комментарий</p>
       )}
     </ul>
   );

@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import PopularPostCard from '../../../shared/components/PopularPostCard';
+import PopularPostCard from './PopularPostCard';
 import {useAppDispatch, useAppSelector} from '../../../shared/hooks/appHooks';
 import {getPopularPostsThunk} from '../models/getPopularPostThunk';
 
@@ -18,7 +18,7 @@ const PopularPostList = () => {
   }
 
   return (
-    <>
+    <div>
       {popularPosts.map((popularPost) => {
         return (
           <PopularPostCard
@@ -29,7 +29,7 @@ const PopularPostList = () => {
           />
         );
       })}
-    </>
+    </div>
   );
 };
 
