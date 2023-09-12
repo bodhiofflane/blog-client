@@ -4,6 +4,7 @@ import transformDate from '../../../shared/utils/transformData.utils';
 import { MY_BLOG } from '../../../shared/constants/myBlog';
 import Loading from '../../../shared/ui/Loading';
 import Error from '../../../shared/ui/Error';
+import Htag from '../../../shared/ui/HTag';
 
 type PostCardProps = {
   post: {
@@ -48,9 +49,9 @@ const PostCard = ({ post, postStatus }: PostCardProps) => {
         <p className="text-gray-500">{transformDate(post.createdAt)}</p>
       </div>
 
-      <h3 className="py-1 text-lg text-gray-700 font-bold break-words text-center">
+      <Htag size='h2' textCenter className='mb-3'>
         {post.title}
-      </h3>
+      </Htag>
       <div className="relative rounded-xl overflow-hidden">
         {post.imgURL ? (
           <img
@@ -61,7 +62,7 @@ const PostCard = ({ post, postStatus }: PostCardProps) => {
         ) : null}
       </div>
 
-      <div className="my-3 p-2 bg-white rounded-md">
+      <div className="my-3 p-2 bg-bg-light dark:bg-bg-dark rounded-md">
         <p className="text-gray-500">{post.postText}</p>
       </div>
     </div>

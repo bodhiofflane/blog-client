@@ -44,7 +44,7 @@ const PostWidget = ({ postId }: PostWidgetProps) => {
   console.log(postStatus, postMessage);
 
   return (
-    <article className="bg-teal-100 rounded-md">
+    <article className="bg-bg-light-second dark:bg-bg-dark-second shadow-main dark:shadow-none rounded-md">
       <PostCard
         post={post}
         postStatus={postStatus}

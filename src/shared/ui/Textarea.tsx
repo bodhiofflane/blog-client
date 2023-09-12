@@ -19,7 +19,7 @@ const Textarea = ({title, id, error, ...props}: TextareaProps) => {
         spellCheck='true'
         rows={15}
         id={id}
-        className="block rounded-md p-2 text-slate-600 bg-white outline-none placeholder:text-gray-300 transition-colors focus:bg-teal-200 focus:placeholder:text-gray-500"
+        className="block p-2 rounded-md text-txt-low-contrast-light dark:text-txt-mid-contrast-dark bg-bg-light dark:bg-bg-dark outline-none placeholder:text-txt-low-contrast-light transition-colors focus:ring ring-primary"
         {...props}
       />
       {error ? (

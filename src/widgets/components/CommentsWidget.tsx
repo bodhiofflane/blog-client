@@ -20,6 +20,7 @@ const CommentsWidget = ({ postId }: CommentsWidgetProps) => {
   const authorizedUserId = useAppSelector((state) => state.auth._id);
   const comments = useAppSelector((state) => state.comments.comments);
   const commentsStatus = useAppSelector((state) => state.comments.status);
+  const commentsinteractionStatus = useAppSelector((state) => state.comments.interactionStatus);
   //const commentsMessage = useAppSelector((state) => state.comments.message);
 
   console.log(postId)
@@ -28,8 +29,10 @@ const CommentsWidget = ({ postId }: CommentsWidgetProps) => {
     dispatch(getCommentListByParentPostIdThunk(postId));
   }, [dispatch, postId]);
 
+  // разные статусы 
+
   return (
-    <article className="p-3 bg-teal-100 rounded-md">
+    <article className="p-3 bg-bg-light-second dark:bg-bg-dark-second shadow-main dark:shadow-none rounded-md">
 
       <CommentList
         commentList={comments}
@@ -39,7 +42,7 @@ const CommentsWidget = ({ postId }: CommentsWidgetProps) => {
 
       {/* Conditional render */}
       {userIsAuthorized ? (
-        <SendCommentForm postId={postId} />
+        <SendCommentForm postId={postId} interactionStatus={commentsinteractionStatus} />
       ) : (
         <CustomLink to="/login" state={{ from: location.pathname }}>
           Авторизуйтесь что бы оставить комментарий

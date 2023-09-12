@@ -32,13 +32,15 @@ const CommentList = ({
   const sectionWithComments = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      if (sectionWithComments.current) {
-        sectionWithComments.current.scroll({ top: 99999, behavior: 'smooth' });
-      }
-    }, 300);
+    if (commentsStatus === 'success') {
+      setTimeout(() => {
+        if (sectionWithComments.current) {
+          sectionWithComments.current.scroll({ top: 99999, behavior: 'smooth' });
+        }
+      }, 300);
+    }
     // Если длинна массива комментарием изменится, то скрол опустится самый низ
-  }, [commentList.length]);
+  }, [commentList.length, commentsStatus]);
 
   const isCommentOwnedUser = (commentAuthorId: string) => {
     return commentAuthorId === authorizedUserId ? true : false;

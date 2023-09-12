@@ -1,22 +1,30 @@
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import Button from "../../../shared/ui/Button";
-import Textarea from "../../../shared/ui/Textarea";
-import { useAppDispatch } from "../../../shared/hooks/appHooks";
-import { createCommentThunk } from "../model/createCommentThunk";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import {AiOutlineLoading3Quarters} from 'react-icons/ai';
+
+
+import Button from '../../../shared/ui/Button';
+import Textarea from '../../../shared/ui/Textarea';
+import { useAppDispatch } from '../../../shared/hooks/appHooks';
+import { createCommentThunk } from '../model/createCommentThunk';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { clearInteractionStatus } from '../../../entities/comments/model/commentsSlice';
+
 
 type SendCommentForm = {
   postId: string;
+  interactionStatus: 'waiting' | 'loading' | 'error' | 'created' | 'deleted';
 };
 
 const validationSchema = Yup.object({
   commentText: Yup.string()
-    .min(2, "Слишком кототкий комментарий")
-    .max(300, "Слишком длинный комментарий")
-    .required("Текст комментария обязателен"),
+    .min(2, 'Слишком кототкий комментарий')
+    .max(300, 'Слишком длинный комментарий')
+    .required('Текст комментария обязателен'),
 });
 
-const SendCommentForm = ({ postId }: SendCommentForm) => {
+const SendCommentForm = ({ postId, interactionStatus }: SendCommentForm) => {
   const dispatch = useAppDispatch();
 
   const submitForm = (values: { commentText: string }) => {
@@ -30,22 +38,34 @@ const SendCommentForm = ({ postId }: SendCommentForm) => {
 
   const sendCommentForm = useFormik({
     initialValues: {
-      commentText: "",
+      commentText: '',
     },
     validationSchema,
     onSubmit: submitForm,
   });
 
+  useEffect(() => {
+    if (interactionStatus === 'created') {
+      toast.success('Комментарий успешно создан');
+    }
+    if (interactionStatus === 'deleted') {
+      toast.success('Комментарий удален');
+    }
+    if (interactionStatus === 'error') {
+      toast.error('Ошибка сознания комментария');
+    }
+    return () => {
+      dispatch(clearInteractionStatus());
+    }
+  }, [dispatch, interactionStatus]);
+
   return (
-    <form
-      onSubmit={sendCommentForm.handleSubmit}
-      className="flex flex-col"
-    >
+    <form onSubmit={sendCommentForm.handleSubmit} className="flex flex-col">
       <Textarea
         title="Оставить комментарий"
         id="commentText"
         placeholder="Ваш комментарий"
-        {...sendCommentForm.getFieldProps("commentText")}
+        {...sendCommentForm.getFieldProps('commentText')}
         error={
           sendCommentForm.errors.commentText &&
           sendCommentForm.touched.commentText
@@ -56,7 +76,14 @@ const SendCommentForm = ({ postId }: SendCommentForm) => {
         cols={10}
       />
       <div className="flex justify-around">
-        <Button type="submit">Отправить</Button>
+        {interactionStatus === 'loading' ? (
+          <Button type="submit">
+            <span className='px-8 animate-spin'><AiOutlineLoading3Quarters/></span>
+          </Button>
+        ) : (
+          <Button type="submit">Отправить</Button>
+        )}
+
         <Button
           onClick={sendCommentForm.handleReset}
           style="second"

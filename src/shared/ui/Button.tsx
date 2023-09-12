@@ -3,7 +3,7 @@ import {ButtonHTMLAttributes, DetailedHTMLProps, ReactNode} from 'react';
 import cn from 'classnames';
 
 type ButtonProps = {
-  style?: 'prim' | 'second' | 'red';
+  style?: 'prim' | 'second' | 'red' | 'loading';
   children: ReactNode;
 } & DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLButtonElement>,
@@ -16,11 +16,11 @@ const Button = ({style = 'prim', children, ...props}: ButtonProps) => {
       className={cn(
         'inline-flex justify-center items-center outline-none rounded py-1 px-3 transition-colors',
         {
-          'bg-teal-500 text-gray-100 hover:bg-teal-800':
+          'bg-primary text-txt-high-contrast-dark hover:bg-primary-hover':
             style === 'prim',
-          'bg-blue-300 text-gray-500 hover:bg-blue-800 hover:text-white':
+          'bg-primary-hover text-txt-high-contrast-dark hover:bg-primary':
             style === 'second',
-          'bg-red-700 text-gray-100 hover:bg-red-500': style === 'red'
+          'bg-red-700 text-gray-100 hover:bg-red-500': style === 'red',
         }
       )}
       {...props}
