@@ -7,3 +7,16 @@
 body {
   @apply font-main bg-bg-light dark:bg-bg-dark font-normal text-txt-mid-contrast-light dark:text-txt-mid-contrast-dark subpixel-antialiased
 }
+
+::-webkit-scrollbar {
+  @apply w-[10px] bg-transparent rounded-md
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent rounded-md border
+}
+
+/* Скролбар не поддеживает дарк мод*/
+::-webkit-scrollbar-thumb {
+  @apply bg-txt-mid-contrast-light rounded-md
+}

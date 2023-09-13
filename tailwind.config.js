@@ -14,14 +14,15 @@ export default {
         'additional': '#222731',
         'txt-high-contrast-light': '#2b3442',
         'txt-mid-contrast-light': '#4b6a9b',
-        'txt-low-contrast-light': '#6b7280',
         'txt-high-contrast-dark': '#fff',
-        'txt-mid-contrast-dark': '#e5e7eb',
+        'txt-mid-contrast-dark': '#c9ccd1',
+        'txt-low-contrast': '#6b7280',
         'bg-light': '#f6f8ff',
         'bg-light-second' : '#fefefe',
         'bg-dark': '#141d2f',
         'bg-dark-second': '#1e2a47',
         'border-color-light': '#e5e7eb',
+        'border-color-dark': '#2c2f42',
       },
       boxShadow: {
         // Это primary только в rgb

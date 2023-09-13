@@ -1,10 +1,11 @@
 import { LiaUserSolid } from 'react-icons/lia';
-
-import transformDate from '../../../shared/utils/transformData.utils';
 import { MY_BLOG } from '../../../shared/constants/myBlog';
 import Loading from '../../../shared/ui/Loading';
 import Error from '../../../shared/ui/Error';
 import Htag from '../../../shared/ui/HTag';
+import { Link } from 'react-router-dom';
+import Date from '../../../shared/ui/Date';
+import PTag from '../../../shared/ui/PTag';
 
 type PostCardProps = {
   post: {
@@ -44,18 +45,23 @@ const PostCard = ({ post, postStatus }: PostCardProps) => {
           <span className="flex text-gray-500 text-2xl">
             <LiaUserSolid />
           </span>
-          <h4 className="text-gray-500 text-xl">{formattedAuthorName}</h4>
+          <Link to={`/users/${post.authorId}`}>
+          <Htag size='h4'>
+            {formattedAuthorName}
+          </Htag>
+          </Link>
         </div>
-        <p className="text-gray-500">{transformDate(post.createdAt)}</p>
+        <Date date={post.createdAt}/>
       </div>
 
       <Htag size='h2' textCenter className='mb-3'>
         {post.title}
       </Htag>
-      <div className="relative rounded-xl overflow-hidden">
+
+      <div className="relative rounded-md overflow-hidden">
         {post.imgURL ? (
           <img
-            className="block w-full h-96 md:h-[800px] object-cover object-center"
+            className="block w-full h-[205px] md:h-[420px] xl:h-[518px] object-cover object-center"
             src={MY_BLOG + post.imgURL}
             alt={post.title}
           />
@@ -63,7 +69,9 @@ const PostCard = ({ post, postStatus }: PostCardProps) => {
       </div>
 
       <div className="my-3 p-2 bg-bg-light dark:bg-bg-dark rounded-md">
-        <p className="text-gray-500">{post.postText}</p>
+        <PTag contrast='mid'>
+          {post.postText}
+        </PTag>
       </div>
     </div>
   );

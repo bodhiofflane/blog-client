@@ -25,7 +25,7 @@ const UserInfo = ({ username, avatar }: UserInfoProps) => {
 
   return (
     <div className="relative flex items-center space-x-3">
-      <h3 className="hidden md:block">{username}</h3>
+      {/* <h3 className="hidden md:block">{username}</h3> */}
       <img
         className="block w-10 h-10 rounded-full object-cover"
         src={avatar ? avatarFullURL : backupAvatar}

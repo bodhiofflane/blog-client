@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
 
 const SwitchTheme = () => {
@@ -37,11 +37,12 @@ const SwitchTheme = () => {
   }, []);
 
   return (
-    <div className="flex items-center">
+    <div className="hidden xl:flex items-center">
       <BsFillSunFill className={'mr-2 text-xl text-primary dark:text-primary-hover'} />
 
       <label
         className="relative w-12 h-5 bg-border-color-light dark:bg-bg-dark  rounded-2xl cursor-pointer"
+        tabIndex={0}
         htmlFor="switch-theme"
       >
         <input

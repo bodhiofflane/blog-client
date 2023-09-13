@@ -20,7 +20,7 @@ const Button = ({style = 'prim', children, ...props}: ButtonProps) => {
             style === 'prim',
           'bg-primary-hover text-txt-high-contrast-dark hover:bg-primary':
             style === 'second',
-          'bg-red-700 text-gray-100 hover:bg-red-500': style === 'red',
+          'bg-red-400 text-gray-100 hover:bg-red-600': style === 'red',
         }
       )}
       {...props}

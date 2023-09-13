@@ -25,8 +25,8 @@ const PostControl = ({ views, postId, postAuthorId, authorizedUserId }: PostCont
       </div>
 
       {/* Number of views */}
-      <div className="inline-flex items-center gap-1 text-gray-500">
-        <BsEye />{views}
+      <div className="inline-flex items-center gap-1 text-txt-low-contrast">
+        <BsEye className="text-xl" />{views}
       </div>
     </div>
   );

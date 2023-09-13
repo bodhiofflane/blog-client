@@ -7,7 +7,7 @@ const UserControl = () => {
   const {username, auth, avatarURL} = useAppSelector((state) => state.auth);
 
   return (
-    <div className="flex items-center space-x-3 order-3">
+    <div className="flex items-center space-x-3">
       {}
       {auth ? (
         <UserInfo

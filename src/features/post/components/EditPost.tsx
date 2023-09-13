@@ -3,6 +3,7 @@ import Button from '../../../shared/ui/Button';
 
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import { deletePostByIdThunk } from '../model/postThunk';
+import CustomLink from '../../../shared/ui/CustomLink';
 
 type EditPostProps = {
   postId: string;
@@ -17,9 +18,10 @@ const EditPost = ({postId}: EditPostProps) => {
 
   return (
     <>
-    <span>
+    <CustomLink to={`/post/qweqwe/edit`}>
       <AiOutlineEdit />
-    </span>
+    </CustomLink>
+
     <Button style="red" onClick={deleteThisPost}>
       <AiOutlineDelete />
     </Button>

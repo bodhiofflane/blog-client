@@ -1,7 +1,7 @@
 import { DetailedHTMLProps, HtmlHTMLAttributes, ReactNode } from 'react';
 
 type HtagProps = {
-  size: 'h1' | 'h2' | 'h3' | 'h4';
+  size: 'h1' | 'h2' | 'h3' | 'h4' | 'h5';
   textCenter?: boolean;
   children: ReactNode;
 } & DetailedHTMLProps<
@@ -11,7 +11,7 @@ type HtagProps = {
 
 const Htag = ({ size, textCenter, children, className, ...props }: HtagProps) => {
   const bigHeader = `${textCenter ? 'text-center' : ''} m-0 p-0 text-txt-high-contrast-light dark:text-txt-high-contrast-dark ${className}`;
-  const smallHeader = 'm-0 p-0 text-txt-mid-contrast-light dark:text-txt-mid-contrast-dark';
+  const smallHeader = `${textCenter ? 'text-center' : ''} m-0 p-0 text-txt-mid-contrast-light dark:text-txt-mid-contrast-dark ${className}`;
 
   if (size === 'h1') {
     return (

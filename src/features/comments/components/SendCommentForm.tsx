@@ -86,7 +86,7 @@ const SendCommentForm = ({ postId, interactionStatus }: SendCommentForm) => {
 
         <Button
           onClick={sendCommentForm.handleReset}
-          style="second"
+          style="red"
           type="reset"
         >
           Сброс

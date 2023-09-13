@@ -8,12 +8,12 @@ const links = [
 
 const Navigation = () => {
   return (
-      <nav className="hidden md:flex justify-between items-center space-x-3 text-xl order-2">
+      <nav className="hidden xl:flex justify-start xl:justify-center items-center space-x-3 xl:order-2">
         {links.map((link, index) => {
           return (
             <NavLink
               key={index}
-              className="inline-flex text-lg text-gray-500 sm:text-blue-900"
+              className="inline-flex text-lg  text-primary  dark:text-primary-hover border-b-2 border-transparent hover:border-primary hover:dark:border-primary-hover transition-colors"
               to={link.to}
             >
               {link.name}

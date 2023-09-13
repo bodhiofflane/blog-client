@@ -7,6 +7,7 @@ import { getCommentListByParentPostIdThunk } from '../../entities/comments/model
 import CommentList from '../../entities/comments/components/CommentList';
 import SendCommentForm from '../../features/comments/components/SendCommentForm';
 import CustomLink from '../../shared/ui/CustomLink';
+import Htag from '../../shared/ui/HTag';
 //mport Loading from '../../shared/ui/Loading';
 //import Error from '../../shared/ui/Error';
 
@@ -20,20 +21,21 @@ const CommentsWidget = ({ postId }: CommentsWidgetProps) => {
   const authorizedUserId = useAppSelector((state) => state.auth._id);
   const comments = useAppSelector((state) => state.comments.comments);
   const commentsStatus = useAppSelector((state) => state.comments.status);
-  const commentsinteractionStatus = useAppSelector((state) => state.comments.interactionStatus);
-  //const commentsMessage = useAppSelector((state) => state.comments.message);
-
-  console.log(postId)
+  const commentsinteractionStatus = useAppSelector(
+    (state) => state.comments.interactionStatus
+  );
 
   useEffect(() => {
     dispatch(getCommentListByParentPostIdThunk(postId));
   }, [dispatch, postId]);
 
-  // разные статусы 
+  // разные статусы
 
   return (
     <article className="p-3 bg-bg-light-second dark:bg-bg-dark-second shadow-main dark:shadow-none rounded-md">
-
+      <Htag className="mb-3" size="h3">
+        Комментарии к посту
+      </Htag>
       <CommentList
         commentList={comments}
         commentsStatus={commentsStatus}
@@ -42,11 +44,16 @@ const CommentsWidget = ({ postId }: CommentsWidgetProps) => {
 
       {/* Conditional render */}
       {userIsAuthorized ? (
-        <SendCommentForm postId={postId} interactionStatus={commentsinteractionStatus} />
+        <SendCommentForm
+          postId={postId}
+          interactionStatus={commentsinteractionStatus}
+        />
       ) : (
-        <CustomLink to="/login" state={{ from: location.pathname }}>
-          Авторизуйтесь что бы оставить комментарий
-        </CustomLink>
+        <div className='flex justify-center mt-4 mb-1'>
+          <CustomLink to="/login" state={{ from: location.pathname }}>
+            Авторизация
+          </CustomLink>
+        </div>
       )}
     </article>
   );

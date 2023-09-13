@@ -37,7 +37,7 @@ const BurgerMenu = () => {
   }, [isOpenMenu]);
 
   return (
-    <div className="flex justify-center items-center order-1 text-4xl md:hidden">
+    <div className="flex justify-start items-center text-4xl xl:hidden">
       <button
         id="menu-open-button"
         onClick={openMenuHandler}

@@ -7,15 +7,18 @@ import SwitchTheme from '../../../shared/ui/SwithTheme';
 const Header = () => {
   return (
     <header className="mb-12 bg-bg-light-second dark:bg-bg-dark-second shadow-main dark:shadow-none whitespace-nowrap">
-      <div className="w-5/6 m-auto py-2 flex justify-between items-center">
+      {/* <div className="w-5/6 m-auto py-2 flex justify-evenly items-center"> */}
+      <div className="w-5/6 m-auto py-2 grid grid-cols-3 justify-center items-center">
+        <BurgerMenu/>
+        <Navigation/>
+
         <AppLogo />
 
-        {/* Будет отображаться только одно */}
-        <Navigation/>
-        <BurgerMenu/>
+        <div className='flex space-x-2 justify-end xl:order-3'>
+          <SwitchTheme/>
+          <UserControl/>
+        </div>
 
-        <UserControl/>
-        <SwitchTheme/>
       </div>
     </header>
   );
