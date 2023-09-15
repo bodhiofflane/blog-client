@@ -60,7 +60,7 @@ const CommentList = ({
   return (
     <ul
       ref={sectionWithComments}
-      className="space-y-2 min-h-fit max-h-96 overflow-y-auto"
+      className="rounded-md space-y-2 min-h-fit max-h-96 overflow-y-auto"
     >
       {commentList.length ? (
         commentList.map(

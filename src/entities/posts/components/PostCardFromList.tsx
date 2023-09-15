@@ -1,9 +1,11 @@
-import {BsEye} from 'react-icons/bs';
-import {LiaUserSolid} from 'react-icons/lia';
-import {MY_BLOG} from '../../../shared/constants/myBlog';
-import transformDate from '../../../shared/utils/transformData.utils';
+import { BsEye } from 'react-icons/bs';
+import { LiaUserSolid } from 'react-icons/lia';
+import { MY_BLOG } from '../../../shared/constants/myBlog';
 import { Link } from 'react-router-dom';
 import CustomLinkButton from '../../../shared/ui/CustomLinkButton';
+import Htag from '../../../shared/ui/HTag';
+import Date from '../../../shared/ui/Date';
+import PTag from '../../../shared/ui/PTag';
 
 type PostCardFromListProps = {
   post: {
@@ -19,7 +21,7 @@ type PostCardFromListProps = {
   };
 };
 
-const PostCardFromList = ({post}: PostCardFromListProps) => {
+const PostCardFromList = ({ post }: PostCardFromListProps) => {
   const imgFullURL = MY_BLOG + post.imgURL;
   const formattedAuthorName =
     post.authorName.length > 13
@@ -27,28 +29,26 @@ const PostCardFromList = ({post}: PostCardFromListProps) => {
       : post.authorName;
 
   return (
-    <article className="flex flex-col p-3 mb-2 w-full rounded-md bg-teal-100">
+    <article className="flex flex-col p-3 w-full bg-bg-light-second dark:bg-bg-dark-second shadow-main dark:shadow-none rounded-md">
       <div className="flex justify-between items-center mb-3">
         <div className="flex items-center gap-1 cursor-pointer">
           <span className="flex text-gray-500 text-2xl">
             <LiaUserSolid />
           </span>
-          <h3 className="text-gray-500 text-xl">{formattedAuthorName}</h3>
+          <Htag size="h4">{formattedAuthorName}</Htag>
         </div>
-        <p className="text-gray-500">{transformDate(post.createdAt)}</p>
+        <Date date={post.createdAt} />
       </div>
 
-      <Link
-        className="hover:opacity-90"
-        to={`/post/${post._id}`}
-      >
+      <Link className="hover:opacity-90" to={`/post/${post._id}`}>
         <div className="relative rounded-xl overflow-hidden">
-          <h3 className="absolute top-0 left-0 w-full py-3 text-center text-lg text-gray-700 font-bold bg-gray-50 bg-opacity-50 break-words">
+          <Htag textCenter size='h3' className='absolute top-0 left-0 py-2 w-full bg-white dark:bg-bg-dark bg-opacity-50 dark:bg-opacity-70'>
             {post.title}
-          </h3>
+          </Htag>
+
           {post.imgURL ? (
             <img
-              className="block w-full h-96 md:h-[800px] object-cover object-center"
+              className="block w-full aspect-video object-cover object-center"
               src={imgFullURL}
               alt={post.title}
             />
@@ -56,8 +56,10 @@ const PostCardFromList = ({post}: PostCardFromListProps) => {
         </div>
       </Link>
 
-      <div className="my-3 p-2 bg-white rounded-md">
-        <p className="text-gray-500 line-clamp-3">{post.postText}</p>
+      <div className="my-3 p-2 bg-bg-light dark:bg-bg-dark rounded-md">
+        <PTag contrast='mid' className='line-clamp-1'>
+          {post.postText}
+        </PTag>
       </div>
 
       <div className="flex justify-between items-center">
