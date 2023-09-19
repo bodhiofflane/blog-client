@@ -10,11 +10,11 @@ type ButtonProps = {
   HTMLButtonElement
 >;
 
-const Button = ({style = 'prim', children, ...props}: ButtonProps) => {
+const Button = ({style = 'prim', children, className, ...props}: ButtonProps) => {
   return (
     <button
       className={cn(
-        'inline-flex justify-center items-center outline-none rounded py-1 px-3 transition-colors',
+        `inline-flex justify-center items-center outline-none rounded py-1 px-3 transition-colors ${className}`,
         {
           'bg-primary text-txt-high-contrast-dark hover:bg-primary-hover':
             style === 'prim',

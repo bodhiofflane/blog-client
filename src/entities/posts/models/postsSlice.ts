@@ -13,13 +13,13 @@ type ItitailStateType = {
     createdAt: string;
     updatedAt: string;
   }[];
-  status: 'ok' | 'loading' | 'error';
+  status: 'waiting' | 'loading' | 'success' | 'error' ;
   message: string;
 }; 
 
 const initialState: ItitailStateType = {
   posts: [],
-  status: 'ok',
+  status: 'waiting',
   message: '',
 }
 
@@ -43,7 +43,7 @@ const postsSlice = createSlice({
         state.posts = action.payload.posts;
 
         state.message = action.payload.message;
-        state.status = 'ok';
+        state.status = 'success';
       })
       .addCase(getPostsThunk.rejected, (state, action) => {
         state.message = action.error.message as string;

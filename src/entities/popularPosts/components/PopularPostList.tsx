@@ -1,11 +1,14 @@
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import PopularPostCard from './PopularPostCard';
-import {useAppDispatch, useAppSelector} from '../../../shared/hooks/appHooks';
-import {getPopularPostsThunk} from '../models/getPopularPostThunk';
+import { useAppDispatch, useAppSelector } from '../../../shared/hooks/appHooks';
+import { getPopularPostsThunk } from '../models/getPopularPostThunk';
+import Htag from '../../../shared/ui/HTag';
+import Loading from '../../../shared/ui/Loading';
+import Error from '../../../shared/ui/Error';
 
 const PopularPostList = () => {
   const dispathc = useAppDispatch();
-  const {popularPosts, status} = useAppSelector(
+  const { popularPosts, status } = useAppSelector(
     (state) => state.popularPosts
   );
 
@@ -13,23 +16,32 @@ const PopularPostList = () => {
     dispathc(getPopularPostsThunk());
   }, [dispathc]);
 
-  if (status !== 'received') {
-    return <p>Что-то пошло не так</p>
+  if (status === 'waiting' || status === 'loading') {
+    return <Loading/>
+  }
+  if (status === 'error') {
+    return <Error/>
   }
 
   return (
-    <div>
-      {popularPosts.map((popularPost) => {
-        return (
-          <PopularPostCard
-            key={popularPost._id}
-            title={popularPost.title}
-            _id={popularPost._id}
-            views={popularPost.views}
-          />
-        );
-      })}
-    </div>
+    <section>
+      <Htag className='mb-3' size='h2'>
+        Полулярные посты
+      </Htag>
+      <div className="">
+        {popularPosts.map((popularPost) => {
+          return (
+            <PopularPostCard
+              key={popularPost._id}
+              title={popularPost.title}
+              _id={popularPost._id}
+              views={popularPost.views}
+              author={popularPost.authorName}
+            />
+          );
+        })}
+      </div>
+    </section>
   );
 };
 

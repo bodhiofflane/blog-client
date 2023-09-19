@@ -7,6 +7,17 @@ const SwitchTheme = () => {
   const pos = isDarkTheme ? 'translate-x-7' : '';
 
   const initTheme = () => {
+    // Сработает при первом посещении.
+    if (!localStorage.getItem('theme')) {
+      if ( window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ) {
+        localStorage.setItem('theme', 'dark');
+      } else {
+        localStorage.setItem('theme', 'light');
+      }
+    }
+  };
+
+  const themeInstallation = () => {
     const themeFromLocalStorage = localStorage.getItem('theme');
     if (themeFromLocalStorage === 'light') {
       setTheme(false);
@@ -29,16 +40,19 @@ const SwitchTheme = () => {
       localStorage.setItem('theme', 'dark');
       document.documentElement.classList.add('dark');
     }
-  }
+  };
 
   // Что-бы переключатель не дергался при релоде
   useLayoutEffect(() => {
     initTheme();
+    themeInstallation();
   }, []);
 
   return (
     <div className="hidden xl:flex items-center">
-      <BsFillSunFill className={'mr-2 text-xl text-primary dark:text-primary-hover'} />
+      <BsFillSunFill
+        className={'mr-2 text-xl text-primary dark:text-primary-hover'}
+      />
 
       <label
         className="relative w-12 h-5 bg-border-color-light dark:bg-bg-dark  rounded-2xl cursor-pointer"
@@ -51,10 +65,14 @@ const SwitchTheme = () => {
           id="switch-theme"
           onChange={switchTheme}
         />
-        <span className={`absolute top-0 right-0' ${pos} h-full w-[20px] bg-bg-light-second dark:bg-bg-dark-second border-2 border-primary dark:border-primary-hover rounded-full transition-transform`} />
+        <span
+          className={`absolute top-0 right-0' ${pos} h-full w-[20px] bg-bg-light-second dark:bg-bg-dark-second border-2 border-primary dark:border-primary-hover rounded-full transition-transform`}
+        />
       </label>
 
-      <BsFillMoonFill className={'ml-2 text-xl text-primary dark:text-primary-hover'} />
+      <BsFillMoonFill
+        className={'ml-2 text-xl text-primary dark:text-primary-hover'}
+      />
     </div>
   );
 };

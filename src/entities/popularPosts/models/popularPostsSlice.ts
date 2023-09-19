@@ -13,13 +13,13 @@ type ItitailStateType = {
     createdAt: string;
     updatedAt: string;
   }[];
-  status: 'ok' | 'received' | 'loading' | 'error';
+  status: 'waiting' | 'loading' | 'success' | 'error' ;
   message: string;
 };
 
 const initialState: ItitailStateType = {
   popularPosts: [],
-  status: 'ok',
+  status: 'waiting',
   message: '',
 };
 
@@ -37,7 +37,7 @@ const popularPostsSlice = createSlice({
         state.popularPosts = action.payload.popularPostList;
 
         state.message = action.payload.message;
-        state.status = 'received';
+        state.status = 'success';
       })
       .addCase(getPopularPostsThunk.rejected, (state, action) => {
         state.message = action.error.message as string;

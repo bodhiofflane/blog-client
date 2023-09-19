@@ -2,10 +2,11 @@ import { BsEye } from 'react-icons/bs';
 import { LiaUserSolid } from 'react-icons/lia';
 import { MY_BLOG } from '../../../shared/constants/myBlog';
 import { Link } from 'react-router-dom';
-import CustomLinkButton from '../../../shared/ui/CustomLinkButton';
+
 import Htag from '../../../shared/ui/HTag';
 import Date from '../../../shared/ui/Date';
 import PTag from '../../../shared/ui/PTag';
+import CustomLink from '../../../shared/ui/CustomLink';
 
 type PostCardFromListProps = {
   post: {
@@ -42,7 +43,11 @@ const PostCardFromList = ({ post }: PostCardFromListProps) => {
 
       <Link className="hover:opacity-90" to={`/post/${post._id}`}>
         <div className="relative rounded-xl overflow-hidden">
-          <Htag textCenter size='h3' className='absolute top-0 left-0 py-2 w-full bg-white dark:bg-bg-dark bg-opacity-50 dark:bg-opacity-70'>
+          <Htag
+            textCenter
+            size="h3"
+            className="absolute top-0 left-0 py-2 w-full bg-white dark:bg-bg-dark bg-opacity-50 dark:bg-opacity-70"
+          >
             {post.title}
           </Htag>
 
@@ -57,14 +62,14 @@ const PostCardFromList = ({ post }: PostCardFromListProps) => {
       </Link>
 
       <div className="my-3 p-2 bg-bg-light dark:bg-bg-dark rounded-md">
-        <PTag contrast='mid' className='line-clamp-1'>
+        <PTag contrast="mid" className="line-clamp-1">
           {post.postText}
         </PTag>
       </div>
 
       <div className="flex justify-between items-center">
         <div className="flex items-baseline gap-3">
-          <CustomLinkButton to={`/post/${post._id}`}>К посту</CustomLinkButton>
+          <CustomLink to={`/post/${post._id}`}>К посту</CustomLink>
         </div>
 
         <div className="inline-flex items-center gap-1 text-gray-500">
