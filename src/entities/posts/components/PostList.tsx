@@ -61,7 +61,7 @@ const PostList = () => {
             );
           }
           return (
-            <Button onClick={() => changingNumberCol(index + 1)}>{item}</Button>
+            <Button key={index} onClick={() => changingNumberCol(index + 1)}>{item}</Button>
           );
         })}
       </div>

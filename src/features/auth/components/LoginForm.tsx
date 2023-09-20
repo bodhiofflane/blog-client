@@ -1,24 +1,26 @@
-import { useFormik } from "formik";
-import Input from "../../../shared/ui/Input";
-import Button from "../../../shared/ui/Button";
-import CustomLink from "../../../shared/ui/CustomLink";
-import { MdAppRegistration } from "react-icons/md";
-import * as Yup from "yup";
-import { useAppDispatch, useAppSelector } from "../../../shared/hooks/appHooks";
-import { loginThunk } from "../model/authThunk";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
-import { useLocation, useNavigate } from "react-router-dom";
-import { clearAuthStatusAndMessage } from "../model/authSlice";
-import Loading from "../../../shared/ui/Loading";
+import { useFormik } from 'formik';
+import Input from '../../../shared/ui/Input';
+import Button from '../../../shared/ui/Button';
+import CustomLink from '../../../shared/ui/CustomLink';
+import { MdAppRegistration } from 'react-icons/md';
+import * as Yup from 'yup';
+import { useAppDispatch, useAppSelector } from '../../../shared/hooks/appHooks';
+import { loginThunk } from '../model/authThunk';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { clearAuthStatusAndMessage } from '../model/authSlice';
+import Loading from '../../../shared/ui/Loading';
+import Htag from '../../../shared/ui/HTag';
+import Form from '../../../shared/components/Form';
 
 const validationSchema = Yup.object({
   username: Yup.string()
-    .min(3, "Не короче 3 символов")
-    .required("Обязательное поле"),
+    .min(3, 'Не короче 3 символов')
+    .required('Обязательное поле'),
   password: Yup.string()
-    .min(5, "Не короче 5 символов")
-    .required("Обязательное поле"),
+    .min(5, 'Не короче 5 символов')
+    .required('Обязательное поле'),
 });
 
 const LoginForm = () => {
@@ -35,12 +37,12 @@ const LoginForm = () => {
   const redirecPathAfterAuth =
     location.state && location.state.from
       ? (location.state.from as string)
-      : "/";
+      : '/';
 
   const loginForm = useFormik({
     initialValues: {
-      username: "",
-      password: "",
+      username: '',
+      password: '',
     },
     validationSchema,
     onSubmit: (values) => {
@@ -62,11 +64,11 @@ const LoginForm = () => {
     Итог) В таком случае, пользователю никак не попасть на страницу login/registration, если он уже авторизован. RedirectIfAuth можно удалить.
   */
   useEffect(() => {
-    if (status === "success") {
+    if (status === 'success') {
       toast.success(message);
       navigate(redirecPathAfterAuth);
     }
-    if (status === "error") {
+    if (status === 'error') {
       toast.error(message);
     }
     return () => {
@@ -74,23 +76,22 @@ const LoginForm = () => {
     };
   }, [status, message, navigate, dispatch, redirecPathAfterAuth]);
 
-  if (status === "loading") {
+  if (status === 'loading') {
     return <Loading />;
   }
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-xl font-bold text-gray-500 mb-5">Вход</h1>
-      <form
-        className="flex flex-col justify-center w-[290px] xl:w-[500px] p-5 rounded-lg bg-teal-100"
-        onSubmit={loginForm.handleSubmit}
-      >
+      <Form onSubmit={loginForm.handleSubmit}>
+        <Htag className="mb-2" size="h2" textCenter>
+          Регистрация пользователя
+        </Htag>
         <Input
           title="Введите имя пользователя:"
           id="username"
           type="text"
           placeholder="Username"
-          {...loginForm.getFieldProps("username")}
+          {...loginForm.getFieldProps('username')}
           error={
             loginForm.errors.username && loginForm.touched.username
               ? loginForm.errors.username
@@ -102,7 +103,7 @@ const LoginForm = () => {
           id="password"
           type="password"
           placeholder="Password"
-          {...loginForm.getFieldProps("password")}
+          {...loginForm.getFieldProps('password')}
           error={
             loginForm.errors.password && loginForm.touched.password
               ? loginForm.errors.password
@@ -121,7 +122,8 @@ const LoginForm = () => {
             Сброс
           </Button>
         </div>
-      </form>
+      </Form>
+
       <div className="mt-2">
         <CustomLink to="/registration" state={{ from: redirecPathAfterAuth }}>
           <span className="inline-flex justify-center items-center gap-2">

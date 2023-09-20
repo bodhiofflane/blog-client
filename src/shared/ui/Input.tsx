@@ -1,4 +1,5 @@
 import {DetailedHTMLProps, InputHTMLAttributes} from 'react';
+import Htag from './HTag';
 
 type InputProps = {
   title: string;
@@ -11,10 +12,12 @@ const Input = ({title, id, error, ...props}: InputProps) => {
       className="relative flex flex-col justify-center mb-6"
       htmlFor={id}
     >
-      <h3 className="text-gray-600 mb-1">{title}</h3>
+      <Htag className='mb-2' size='h5'>
+        {title}
+      </Htag>
       <input
         id={id}
-        className="block rounded-md p-2 text-slate-600 bg-white outline-none placeholder:text-gray-300 transition-colors focus:bg-teal-200 focus:placeholder:text-gray-500"
+        className="block p-2 bg-bg-light dark:bg-bg-dark text-txt-high-contrast-light dark:text-txt-high-contrast-dark placeholder:text-txt-low-contrast shadow-main dark:shadow-none transition-all focus:ring rounded-md outline-none"
         {...props}
       />
       {error ? (

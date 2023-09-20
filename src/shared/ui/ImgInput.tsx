@@ -51,7 +51,7 @@ const ImgInput = ({children, riseImg}: FileInputPorps) => {
       </label>
       {imgURL ? (
         <img
-          className="block"
+          className="block aspect-square object-cover object-center rounded-full"
           src={imgURL}
           alt="avatar"
         />
